@@ -49,6 +49,15 @@ describe('Authentication', () => {
     expect(response.status).toBe(400)
   })
 
+  it('should not be able to create when use invalid email ', async () => {
+    const response = await request(app).post('/login').send({
+      email: 'withene2@gmail.com',
+      name: 'withene',
+      password: '282828'
+    })
+    expect(response.status).toBe(400)
+  })
+
   it('should be able to create a token on login with credencial correct', async () => {
     const response = await request(app).post('/login').send({
       email: 'withene28@gmail.com',

@@ -5,6 +5,7 @@ import UserModel from '../../src/app/models/UserModel'
 describe('Create user, with no routers', () => {
   it('should be able to CREATE a new user', async () => {
     const user = await factory.create('User', {
+      email: 'withene.ti@gmail.com',
       password_hash: '123123'
     })
     const compareHash = await user.checkPassword('123123')
@@ -12,18 +13,23 @@ describe('Create user, with no routers', () => {
   })
 
   it('should be UPDATE one user', async () => {
-    await UserModel.update({ name: 'Witenhe' }, { where: { id: 1 } })
-    const userConfirm = await UserModel.findByPk(1)
+    const user = await UserModel.findOne({ where: { email: 'withene.ti@gmail.com' } })
+
+    await UserModel.update({ name: 'Witenhe' }, { where: { id: user.id } })
+
+    const userConfirm = await UserModel.findByPk(user.id)
+
     expect(userConfirm.name).toBe('Witenhe')
   })
 
   it('should be DELETE one user', async () => {
-    const user = await UserModel.destroy(
+    const user = await UserModel.findOne({ where: { email: 'withene.ti@gmail.com' } })
+    const userDelete = await UserModel.destroy(
       {
         where: {
-          id: 1
+          id: user.id
         }
       })
-    expect(user).toBe(1)
+    expect(userDelete).toBe(1)
   })
 })
