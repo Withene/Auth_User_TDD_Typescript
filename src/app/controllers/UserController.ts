@@ -1,12 +1,7 @@
 
 import User from '../models/User'
 import { Request, Response } from 'express'
-
-interface bodyModel {
-  email: string;
-  name: string;
-  password: string;
-}
+import { bodyModel, bodyModeLogin } from '../models/UserTypes'
 
 class UserController {
   public async create (req:Request, res:Response): Promise<Response> {
@@ -19,6 +14,17 @@ class UserController {
     }
 
     return res.status(200).json(createUser)
+  }
+
+  public async login (req:Request, res:Response):Promise<Response> {
+    const data = req.body as bodyModeLogin
+
+    const Auth = await User.Login(data.email, data.password)
+    if (Auth.erro === true) {
+      return res.status(400).json(Auth)
+    }
+
+    return res.status(200).json(Auth)
   }
 }
 

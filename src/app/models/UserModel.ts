@@ -1,6 +1,10 @@
 import { Model, DataTypes } from 'sequelize'
 import { sequelize } from '../../config/sequelize'
 import { hash, compare } from 'bcrypt'
+import { sign } from 'jsonwebtoken'
+import * as dotenv from 'dotenv'
+
+dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' })
 
 interface UserAttributes {
   id?:number
@@ -17,7 +21,11 @@ interface User extends Model{
 
 interface UserInstance
   extends Model<UserAttributes>,
-    UserAttributes {}
+    UserAttributes {
+  checkPassword(password: string | number):boolean,
+  generateToken():string
+
+}
 
 const UserModel = sequelize.define< UserInstance >(
   'User',
@@ -25,7 +33,8 @@ const UserModel = sequelize.define< UserInstance >(
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password_hash: DataTypes.STRING
-  }, {
+  },
+  {
     hooks: {
       beforeCreate: async (user: User) => {
         const saltRounds = 10
@@ -33,11 +42,13 @@ const UserModel = sequelize.define< UserInstance >(
       }
     }
   }
-
 )
+UserModel.prototype.generateToken = function () {
+  return sign({ id: this.id }, process.env.APP_SECRET, { expiresIn: '1hr' })
+}
 
-UserModel.prototype.checkPassword = function (password) {
-  return compare(password, this.password_hash)
+UserModel.prototype.checkPassword = async function (password) {
+  return await compare(password, this.password_hash)
 }
 
 export default UserModel

@@ -1,13 +1,13 @@
+
 'use strict'
 
 module.exports = {
-  // @ts-ignore
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('users', {
       id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
         autoIncrement: true,
+        primaryKey: true,
         allowNull: false
       },
       name: {
@@ -30,10 +30,11 @@ module.exports = {
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false
+
       }
     })
   },
-  // @ts-ignore
+
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('users')
   }

@@ -4,12 +4,13 @@ import * as dotenv from 'dotenv'
 dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' })
 
 const configs = {
-  dialect: 'mysql',
   logging: false,
+  dialect: 'mysql',
   define: {
     timestamps: true,
     underscored: true,
-    underscoredAll: true
+    underscoredAll: true,
+    timezone: '-03:00'
   }
 }
 
