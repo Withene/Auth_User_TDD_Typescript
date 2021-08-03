@@ -23,7 +23,6 @@ class UserController {
     if (Auth.erro === true) {
       return res.status(400).json(Auth)
     }
-
     return res.status(200).json(Auth)
   }
 }
