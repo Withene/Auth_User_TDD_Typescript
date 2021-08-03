@@ -4,7 +4,7 @@ import isEmail from 'validator/lib/isEmail'
 interface UserReturn {
     erro:boolean
     Message?:string
-    user?: string |any
+    user?: unknown
     Token?: string
   }
 
@@ -21,6 +21,7 @@ class User {
           email: email,
           password_hash: password
         })
+
         return { erro: false, Message: 'Create User Sucessful', user: user }
       } else {
         return { erro: true, Message: 'Email already exist' }
@@ -58,21 +59,23 @@ class User {
 
   public async Login (email:string, password:string | number):Promise<UserReturn> {
     const verifyDates = await this.validator(email, password)
-    if (verifyDates !== true) {
-      const user = await UserModel.findOne({
 
-        where: {
-          email: email
+    const verify = await this.VerifyEmail(email)
+    if (verify !== false) {
+      if (verifyDates !== true) {
+        const user = await UserModel.findOne({
+          where: {
+            email: email
+          }
+        })
+        const checkPassword = await user.checkPassword(password)
+        if (checkPassword === true) {
+          const createToken = await user.generateToken()
+          // it only to test
+          return { erro: false, Message: 'Sucessful', Token: createToken }
+        } else {
+          return { erro: true, Message: 'Credentials Error' }
         }
-      })
-      const checkPassword = await user.checkPassword(password)
-
-      if (checkPassword === true) {
-        const createToken = await user.generateToken()
-
-        // it only to test
-
-        return { erro: false, Message: 'Sucessful', Token: createToken }
       } else {
         return { erro: true, Message: 'Credentials Error' }
       }

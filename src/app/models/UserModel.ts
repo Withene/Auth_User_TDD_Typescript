@@ -7,7 +7,7 @@ import * as dotenv from 'dotenv'
 dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' })
 
 interface UserAttributes {
-  id?:number
+  id?:string;
   email?: string;
   name?: string;
   // eslint-disable-next-line camelcase
@@ -22,7 +22,7 @@ interface User extends Model{
 interface UserInstance
   extends Model<UserAttributes>,
     UserAttributes {
-  checkPassword(password: string | number):boolean,
+  checkPassword(password: string | number):boolean|null,
   generateToken():string
 
 }
@@ -30,6 +30,11 @@ interface UserInstance
 const UserModel = sequelize.define< UserInstance >(
   'User',
   {
+    id: {
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
+    },
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password_hash: DataTypes.STRING

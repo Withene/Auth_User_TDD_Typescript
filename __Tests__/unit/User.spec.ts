@@ -13,9 +13,7 @@ describe('Create user, with no routers', () => {
 
   it('should be UPDATE one user', async () => {
     await UserModel.update({ name: 'Witenhe' }, { where: { id: 1 } })
-
     const userConfirm = await UserModel.findByPk(1)
-
     expect(userConfirm.name).toBe('Witenhe')
   })
 
