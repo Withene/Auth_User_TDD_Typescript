@@ -7,10 +7,13 @@ interface UserReturn {
     user?: unknown
     Token?: string
   }
-
+interface UserrResponse{ id: string; name:string; email:string; createdAt:string, updatedAt:string}
 class User {
   public async Create (name:string, email:string, password:string): Promise<UserReturn> {
-    const verifyDates = await this.validator(email, password)
+    let verifyDates = await this.validator(email, password)
+    if (name === undefined || name === null) {
+      verifyDates = true
+    }
 
     if (verifyDates !== true) {
       const verify = await this.VerifyEmail(email)
@@ -21,13 +24,19 @@ class User {
           email: email,
           password_hash: password
         })
-
-        return { erro: false, Message: 'Create User Sucessful', user: user }
+        const Usereturn:UserrResponse = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt
+        }
+        return { erro: false, Message: 'Create User Sucessful', user: Usereturn }
       } else {
         return { erro: true, Message: 'Email already exist' }
       }
     } else {
-      return { erro: true, Message: 'Email is Undefined' }
+      return { erro: true, Message: 'Missing Credetials' }
     }
   }
 
@@ -51,6 +60,7 @@ class User {
     if (password === undefined || password == null) {
       return true
     }
+
     if (isEmail(email) === false) {
       return true
     }
@@ -72,7 +82,15 @@ class User {
         if (checkPassword === true) {
           const createToken = await user.generateToken()
           // it only to test
-          return { erro: false, Message: 'Sucessful', Token: createToken }
+          const Usereturn:UserrResponse = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt
+          }
+
+          return { erro: false, Message: 'Sucessful', user: Usereturn, Token: createToken }
         } else {
           return { erro: true, Message: 'Credentials Error' }
         }

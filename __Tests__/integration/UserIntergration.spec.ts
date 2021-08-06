@@ -39,7 +39,13 @@ describe('Authentication', () => {
     })
     expect(response.status).toBe(400)
   })
-
+  it('should not be able to create when dont have Name ', async () => {
+    const response = await request(app).post('/user').send({
+      email: 'withene28@gmail.com',
+      password: '282828'
+    })
+    expect(response.status).toBe(400)
+  })
   it('should not be able to create when use invalid email ', async () => {
     const response = await request(app).post('/user').send({
       email: 'withene28gmail.com',

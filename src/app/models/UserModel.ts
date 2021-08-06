@@ -8,10 +8,12 @@ dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' })
 
 interface UserAttributes {
   id?:string;
-  email?: string;
-  name?: string;
+  email: string;
+  name: string;
   // eslint-disable-next-line camelcase
   password_hash: string;
+  createdAt?:string
+  updatedAt?:string
 }
 
 interface User extends Model{
@@ -23,7 +25,7 @@ interface UserInstance
   extends Model<UserAttributes>,
     UserAttributes {
   checkPassword(password: string | number):boolean|null,
-  generateToken():string
+  generateToken():string,
 
 }
 
