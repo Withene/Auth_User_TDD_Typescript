@@ -39,10 +39,15 @@
 
 Open [http://localhost:3000](http://localhost:8000) 
 é nessesario um arquivo .env com o seguinte preenchimento 
+
 >DB_HOST=
+>
 >DB_USER=
+>
 >DB_PASS=
+>
 >DB_NAME=
+>
 >APP_SECRET=
 
 
