@@ -4,7 +4,8 @@
 
 
 #### /User   Post
-![Usuario](https://user-images.githubusercontent.com/82597491/129406155-70b17f12-6c41-4f6d-b971-366df12d8694.png)
+![Screenshot_5](https://user-images.githubusercontent.com/82597491/129406235-77341f78-c55b-400f-ac90-bc20881406cc.png)
+
 
 
 
