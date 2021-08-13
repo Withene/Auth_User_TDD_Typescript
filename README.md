@@ -4,7 +4,7 @@
 
 
 #### /User   Post
-. Data: Name, Email, Senha
+> Dados necessarios: Name, Email, Senha
 
 ![Screenshot_5](https://user-images.githubusercontent.com/82597491/129406235-77341f78-c55b-400f-ac90-bc20881406cc.png)
 
