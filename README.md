@@ -24,18 +24,12 @@
 
 
 
+### Recursos Utilizados 
 
-
-
-
-
-
-
-
-
-
-
-
+#### Express
+#### Sequelize-Cli/ Sequelize
+#### Typescript
+#### Node.js
 
 
 
