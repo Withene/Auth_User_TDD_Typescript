@@ -1,54 +1,90 @@
-## Api Feita Para Testar Conhecimentos em Typescript e TDD(Test Driven Development),
-## Será Utilizada para Desenvolvimento em Front-end 
+## API Para Testar Conhecimentos TypeScript e TDD (Test Driven Development)
 
-### Rotas
+**Descrição:**
 
+Esta API foi criada para testar conhecimentos em TypeScript e TDD (Test Driven Development).
 
-#### /User   Post.  Criação de Usuário
-> Dados necessarios: Nome, Email, Senha
+**Rotas:**
 
->Dados Esperados:
+**POST /User:**
 
-![Screenshot_5](https://user-images.githubusercontent.com/82597491/129406235-77341f78-c55b-400f-ac90-bc20881406cc.png)
+* **Criação de usuário:**
+    * **Dados necessários:**
+        * Nome
+        * Email
+        * Senha
+    * **Dados esperados:**
+        * Objeto com as informações do usuário criado, incluindo ID
+          
+**Exemplo de Retorno:**
 
-
-
-#### /Login   Post.  Criação de Usuário
-> Dados necessarios: Nome, Email
-
-
->Dados Esperados:
-
-![Screenshot_6](https://user-images.githubusercontent.com/82597491/129406789-ec72e027-ab26-4c4b-b2c7-cd83cfb05367.png)
-
-
+  ![image](https://github.com/Withene/Auth_User_TDD_Typescript/assets/82597491/8d90be45-3f85-460c-85e3-624ee9c2daa2)
+  * A resposta da API para a criação de um usuário.
 
 
-### Recursos Utilizados:
+**POST /Login:**
 
-#### Express
-#### Sequelize-Cli/ Sequelize
-#### Typescript
-#### Node.js
+* **Autenticação de usuário:**
+    * **Dados necessários:**
+        * Email
+        * Senha
+    * **Dados esperados:**
+        * Token de autenticação
+          
+**Exemplo de Retorno:**
 
+  ![image](https://github.com/Withene/Auth_User_TDD_Typescript/assets/82597491/db09d66e-49c8-433d-80f8-bab731dea96e)
+  * A resposta da API para login de um usuário
 
+**Recursos utilizados:**
 
+* Express
+* Sequelize-Cli/Sequelize
+* TypeScript
+* Node.js
 
-### `yarn dev` Para Iniciar o Projeto.
+**Como iniciar:**
 
+1. Instale as dependências com `yarn install`.
+2. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+    * `DB_HOST`: Host do banco de dados
+    * `DB_USER`: Usuário do banco de dados
+    * `DB_PASS`: Senha do banco de dados
+    * `DB_NAME`: Nome do banco de dados
+    * `APP_SECRET`: Chave secreta da aplicação
+3. Inicie a API com o comando `yarn dev`.
+4. Acesse a API em `http://localhost:3000`.
 
-Open [http://localhost:3000](http://localhost:8000) 
-é nessesario um arquivo .env com o seguinte preenchimento 
+**Observações:**
 
->DB_HOST=
->
->DB_USER=
->
->DB_PASS=
->
->DB_NAME=
->
->APP_SECRET=
+* É necessário ter um banco de dados PostgreSQL instalado e configurado.
+* O token de autenticação é gerado com base na chave secreta definida no arquivo `.env`.
 
+**Exemplo de uso:**
 
-by: Withene
+```
+// Criação de usuário
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "João Silva",
+    "email": "joaosilva@email.com",
+    "senha": "123456"
+  }' \
+  http://localhost:3000/user
+
+// Autenticação de usuário
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "joaosilva@email.com",
+    "senha": "123456"
+  }' \
+  http://localhost:3000/login
+```
+
+**Recursos adicionais:**
+
+* Documentação do Express: [https://expressjs.com/en/4x/api.html](https://expressjs.com/en/4x/api.html)
+* Documentação do Sequelize: [https://sequelize.org/](https://sequelize.org/)
+* Documentação do TypeScript: [https://www.typescriptlang.
